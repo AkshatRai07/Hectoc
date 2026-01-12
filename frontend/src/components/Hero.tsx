@@ -17,7 +17,7 @@ export const Hero = () => {
             The Ultimate Math Challenge
           </span>
           <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6">
-            Can you reach <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">100?</span>
+            Can you reach <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-purple-400">100?</span>
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-xl text-slate-400 mb-10">
             Given a 6-digit number, use any operations to equate it to 100. 
@@ -35,7 +35,7 @@ export const Hero = () => {
         </motion.div>
 
         {/* Decorative Background Elements */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[100px] -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-indigo-600/20 rounded-full blur-[100px] -z-10" />
       </div>
     </section>
   );

@@ -1,12 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  Calculator, 
-  Trophy, 
-  Users, 
-  ArrowRight, 
-  BrainCircuit,
+import {
+  Trophy,
+  Users,
+  ArrowRight,
 } from "lucide-react";
 
 export const HowItWorks = () => {
