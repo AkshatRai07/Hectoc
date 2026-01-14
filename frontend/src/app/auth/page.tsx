@@ -10,7 +10,6 @@ export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   
-  // State to capture input values
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -50,7 +49,7 @@ export default function AuthPage() {
     <main className="min-h-screen bg-slate-950 text-slate-200 selection:bg-indigo-500/30 flex flex-col">
       <Navbar />
 
-      <section className="flex-grow relative flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="grow relative flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         
         {/* Background Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-indigo-600/20 rounded-full blur-[100px] -z-10" />
