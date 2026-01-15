@@ -1,12 +1,15 @@
 package main
 
-import {
-	"fmt"
+import (
+	"log"
+	"net/http"
+	"os"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-}
+)
 
 func main() {
 	godotenv.Load(".env")
@@ -31,5 +34,16 @@ func main() {
 
 	v1Router.Get("/healthz", handlerReadiness)
 
-	fmt.Println("Hello, World!")
+	router.Mount("/v1", v1Router)
+
+	srv := &http.Server{
+		Handler: router,
+		Addr:    ":" + portString,
+	}
+
+	log.Printf("Server starting on port %v", portString)
+	err := srv.ListenAndServe()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
