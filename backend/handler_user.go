@@ -3,11 +3,12 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"os"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/Hectoc/backend/internal/auth"
 	"github.com/Hectoc/backend/internal/database"
+	"github.com/google/uuid"
 )
 
 func (apiCfg *apiConfig) handlerRegister(w http.ResponseWriter, r *http.Request) {
@@ -74,5 +75,23 @@ func (apiCfg *apiConfig) handlerLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	respondWithJSON(w, 200, databaseUserToUser(user))
+	secret := os.Getenv("JWT_SECRET")
+    if secret == "" {
+        respondWithError(w, 500, "JWT Secret not found on server")
+        return
+    }
+
+	token, err := auth.MakeJWT(user.ID, secret, time.Hour)
+    if err != nil {
+        respondWithError(w, 500, "Error creating access token")
+        return
+    }
+
+	respondWithJSON(w, 200, struct {
+        User  User   `json:"user"`
+        Token string `json:"token"`
+    }{
+        User:  databaseUserToUser(user),
+        Token: token,
+    })
 }
