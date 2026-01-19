@@ -5,10 +5,22 @@
 package database
 
 import (
+	"database/sql"
 	"time"
 
 	"github.com/google/uuid"
 )
+
+type GameHistory struct {
+	ID                 uuid.UUID
+	UserID             uuid.NullUUID
+	CreatedAt          time.Time
+	PuzzleDigits       string
+	SolutionExpression string
+	IsSolved           sql.NullBool
+	TimeTakenMs        int32
+	IsDailyChallenge   sql.NullBool
+}
 
 type User struct {
 	ID           uuid.UUID
@@ -17,4 +29,14 @@ type User struct {
 	Username     string
 	Email        string
 	PasswordHash string
+}
+
+type UserStat struct {
+	UserID             uuid.UUID
+	TotalGamesPlayed   sql.NullInt32
+	TotalWins          sql.NullInt32
+	CurrentStreak      sql.NullInt32
+	MaxStreak          sql.NullInt32
+	FastestSolveTimeMs sql.NullInt32
+	UpdatedAt          time.Time
 }
