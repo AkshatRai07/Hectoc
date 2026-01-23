@@ -1,17 +1,15 @@
-FROM node:25-alpine AS deps
+FROM oven/bun:1-alpine AS deps
 WORKDIR /app
-RUN corepack enable
-COPY package.json yarn.lock .yarnrc.yml ./
-RUN yarn install --immutable
+COPY package.json bun.lockb ./
+RUN bun install --frozen-lockfile
 
-FROM node:25-alpine AS builder
+FROM oven/bun:1-alpine AS builder
 WORKDIR /app
-RUN corepack enable
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN yarn build
+RUN bun run build
 
-FROM node:25-alpine AS runner
+FROM oven/bun:1-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV production
 COPY --from=builder /app/public ./public
@@ -19,4 +17,4 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["bun", "server.js"]
